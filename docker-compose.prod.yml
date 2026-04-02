@@ -28,6 +28,32 @@ services:
     depends_on:
       - api
 
+  directus:
+    image: directus/directus:11
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8055:8055"
+    volumes:
+      - directus_db:/directus/database
+      - directus_uploads:/directus/uploads
+    environment:
+      KEY: "9eaf8453c5d3c9a603e727bcae32a826"
+      SECRET: "2601986f92f61310424ebc7c3f28aaa5"
+      DB_CLIENT: "sqlite3"
+      DB_FILENAME: "/directus/database/data.db"
+      ADMIN_EMAIL: "admin@provenissystem.com"
+      ADMIN_PASSWORD: "${DIRECTUS_ADMIN_PASSWORD}"
+      PUBLIC_URL: "https://adminvendas.provenissystem.com"
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: "https://system.provenissystem.com"
+      CORS_METHODS: "GET,OPTIONS"
+      CORS_ALLOWED_HEADERS: "Content-Type,Authorization"
+      CORS_CREDENTIALS: "false"
+
+volumes:
+  directus_db:
+  directus_uploads:
+
 networks:
   provenis_db:
     external: true

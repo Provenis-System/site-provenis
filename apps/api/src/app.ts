@@ -2,6 +2,7 @@ import express from 'express';
 import { settingsRouter } from './modules/settings/index.js';
 import { createProjectsRouter } from './modules/projects/routes.js';
 import { createContactRouter } from './modules/contact/routes.js';
+import { produtosRouter } from './modules/produtos/routes.js';
 import { getPool } from './infra/db/pool.js';
 
 export function createApp() {
@@ -25,8 +26,9 @@ export function createApp() {
     res.json({ status: 'ok' });
   });
 
+  app.use(produtosRouter);
   app.use(settingsRouter);
-  
+
   // Projects API
   const pool = getPool();
   app.use('/api/projects', createProjectsRouter(pool));
