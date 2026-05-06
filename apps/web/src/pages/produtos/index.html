@@ -71,6 +71,63 @@
             </div>
           </div>
         </div>
+
+        <!-- Elementos 3D decorativos -->
+        <div class="hero-3d-scene" aria-hidden="true">
+
+          <!-- Card 1: Dashboard / BI -->
+          <div class="shape3d shape3d-1">
+            <div class="obj-card">
+              <div class="obj-card-header">
+                <span class="obj-dot"></span><span class="obj-dot"></span><span class="obj-dot"></span>
+              </div>
+              <div class="obj-chart">
+                <div class="obj-bar" style="--h:40%"></div>
+                <div class="obj-bar" style="--h:70%"></div>
+                <div class="obj-bar" style="--h:50%"></div>
+                <div class="obj-bar" style="--h:90%"></div>
+                <div class="obj-bar" style="--h:60%"></div>
+              </div>
+              <div class="obj-label">Insight BI</div>
+              <div class="obj-card-shadow"></div>
+            </div>
+          </div>
+
+          <!-- Card 2: Automação / Fluxo -->
+          <div class="shape3d shape3d-2">
+            <div class="obj-card">
+              <div class="obj-card-header">
+                <span class="obj-dot"></span><span class="obj-dot"></span><span class="obj-dot"></span>
+              </div>
+              <div class="obj-flow">
+                <div class="obj-node obj-node-start"></div>
+                <div class="obj-flow-line"></div>
+                <div class="obj-node obj-node-mid"></div>
+                <div class="obj-flow-line"></div>
+                <div class="obj-node obj-node-end"></div>
+              </div>
+              <div class="obj-label">Automações</div>
+              <div class="obj-card-shadow"></div>
+            </div>
+          </div>
+
+          <!-- Card 3: CRM / Lista -->
+          <div class="shape3d shape3d-3">
+            <div class="obj-card">
+              <div class="obj-card-header">
+                <span class="obj-dot"></span><span class="obj-dot"></span><span class="obj-dot"></span>
+              </div>
+              <div class="obj-list">
+                <div class="obj-list-row"><span class="obj-check">✓</span><span class="obj-line-txt"></span></div>
+                <div class="obj-list-row"><span class="obj-check">✓</span><span class="obj-line-txt" style="width:55%"></span></div>
+                <div class="obj-list-row"><span class="obj-check pending">○</span><span class="obj-line-txt" style="width:70%"></span></div>
+              </div>
+              <div class="obj-label">CRM Sales</div>
+              <div class="obj-card-shadow"></div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <section class="products-overview">
@@ -460,7 +517,7 @@
           <div class="preview-layout">
             <div class="preview-video-area">
               <div class="preview-area-label">Vídeo demonstrativo</div>
-              <div class="preview-video-frame">
+              <div class="preview-video-frame" id="preview-video-frame">
                 <div class="preview-video-icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <polygon points="8,5 19,12 8,19" fill="currentColor"/>

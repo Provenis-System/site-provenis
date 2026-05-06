@@ -10,7 +10,117 @@
     <link rel="apple-touch-icon" href="/assets/brand/provenis-logo.png" />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
+  <body class="loading">
+
+    <!-- ── Tela de carregamento ───────────────────────────────────── -->
+    <div id="site-loader" class="site-loader" aria-hidden="true" role="presentation">
+      <div class="loader-inner">
+
+        <!-- Chip circuit animation -->
+        <div class="loader-chip-wrap">
+          <svg class="loader-chip-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="chipGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#2a2a2a"/>
+                <stop offset="100%" stop-color="#0a0a0a"/>
+              </linearGradient>
+              <linearGradient id="textGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#d4af37"/>
+                <stop offset="100%" stop-color="#8a6e1a"/>
+              </linearGradient>
+              <linearGradient id="pinGradient" x1="1" y1="0" x2="0" y2="0">
+                <stop offset="0%"   stop-color="#888"/>
+                <stop offset="50%"  stop-color="#555"/>
+                <stop offset="100%" stop-color="#333"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Traces -->
+            <g id="traces">
+              <path d="M100 100 H200 V210 H326" class="trace-bg"/>
+              <path d="M100 100 H200 V210 H326" class="trace-flow purple"/>
+
+              <path d="M80 180 H180 V230 H326"  class="trace-bg"/>
+              <path d="M80 180 H180 V230 H326"  class="trace-flow blue"/>
+
+              <path d="M60 260 H150 V250 H326"  class="trace-bg"/>
+              <path d="M60 260 H150 V250 H326"  class="trace-flow gold"/>
+
+              <path d="M100 350 H200 V270 H326" class="trace-bg"/>
+              <path d="M100 350 H200 V270 H326" class="trace-flow green"/>
+
+              <path d="M700 90  H560 V210 H474" class="trace-bg"/>
+              <path d="M700 90  H560 V210 H474" class="trace-flow blue"/>
+
+              <path d="M740 160 H580 V230 H474" class="trace-bg"/>
+              <path d="M740 160 H580 V230 H474" class="trace-flow green"/>
+
+              <path d="M720 250 H590 V250 H474" class="trace-bg"/>
+              <path d="M720 250 H590 V250 H474" class="trace-flow red"/>
+
+              <path d="M680 340 H570 V270 H474" class="trace-bg"/>
+              <path d="M680 340 H570 V270 H474" class="trace-flow gold"/>
+            </g>
+
+            <!-- Chip body -->
+            <rect x="330" y="190" width="140" height="100" rx="20" ry="20"
+              fill="url(#chipGradient)"
+              stroke="#d4af3740"
+              stroke-width="1.5"
+              filter="drop-shadow(0 0 10px rgba(212,175,55,0.15))"/>
+
+            <!-- Linha decorativa interna -->
+            <rect x="340" y="198" width="120" height="84" rx="14" ry="14"
+              fill="none" stroke="#d4af3718" stroke-width="1"/>
+
+            <!-- Pins lado esquerdo -->
+            <rect x="318" y="205" width="12" height="10" fill="url(#pinGradient)" rx="2"/>
+            <rect x="318" y="225" width="12" height="10" fill="url(#pinGradient)" rx="2"/>
+            <rect x="318" y="245" width="12" height="10" fill="url(#pinGradient)" rx="2"/>
+            <rect x="318" y="265" width="12" height="10" fill="url(#pinGradient)" rx="2"/>
+
+            <!-- Pins lado direito -->
+            <rect x="470" y="205" width="12" height="10" fill="url(#pinGradient)" rx="2"/>
+            <rect x="470" y="225" width="12" height="10" fill="url(#pinGradient)" rx="2"/>
+            <rect x="470" y="245" width="12" height="10" fill="url(#pinGradient)" rx="2"/>
+            <rect x="470" y="265" width="12" height="10" fill="url(#pinGradient)" rx="2"/>
+
+            <!-- Texto no chip -->
+            <text x="400" y="232"
+              font-family="'Syne', Arial, sans-serif"
+              font-size="18"
+              font-weight="700"
+              fill="url(#textGradient)"
+              text-anchor="middle"
+              letter-spacing="4">PROVENIS</text>
+            <text x="400" y="255"
+              font-family="Arial, sans-serif"
+              font-size="9"
+              fill="rgba(212,175,55,0.35)"
+              text-anchor="middle"
+              letter-spacing="2">SISTEM v2</text>
+
+            <!-- Endpoint circles dourados -->
+            <circle cx="100" cy="100" r="5" fill="rgba(212,175,55,0.25)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+            <circle cx="80"  cy="180" r="5" fill="rgba(212,175,55,0.25)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+            <circle cx="60"  cy="260" r="5" fill="rgba(212,175,55,0.25)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+            <circle cx="100" cy="350" r="5" fill="rgba(212,175,55,0.25)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+            <circle cx="700" cy="90"  r="5" fill="rgba(212,175,55,0.25)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+            <circle cx="740" cy="160" r="5" fill="rgba(212,175,55,0.25)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+            <circle cx="720" cy="250" r="5" fill="rgba(212,175,55,0.25)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+            <circle cx="680" cy="340" r="5" fill="rgba(212,175,55,0.25)" stroke="rgba(212,175,55,0.5)" stroke-width="1"/>
+          </svg>
+        </div>
+
+        <!-- Barra de progresso -->
+        <div class="loader-progress" role="progressbar" aria-label="Carregando">
+          <div class="loader-progress-fill"></div>
+        </div>
+
+      </div>
+    </div>
+    <!-- ── fim loader ─────────────────────────────────────────────── -->
+
     <div class="grain"></div>
     <div class="toast-region" aria-live="polite" aria-relevant="additions text"></div>
     

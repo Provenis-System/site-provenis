@@ -331,6 +331,179 @@ body {
   gap: 1rem;
 }
 
+/* ── 3D product cards no hero ── */
+.hero-3d-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shape3d {
+  position: absolute;
+  perspective: 900px;
+}
+
+/* posições */
+.shape3d-1 { right: 6%;  top: 8%;  width: 160px; animation: float3d-1 9s ease-in-out infinite; }
+.shape3d-2 { right: 24%; top: 42%; width: 140px; animation: float3d-2 11s ease-in-out infinite; }
+.shape3d-3 { right: 4%;  top: 58%; width: 130px; animation: float3d-3 7s ease-in-out infinite; }
+
+/* card base */
+.obj-card {
+  width: 100%;
+  padding: 14px;
+  background: rgba(15, 15, 15, 0.82);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.08);
+  transform: rotateY(-18deg) rotateX(8deg);
+  transition: transform 0.4s var(--ease);
+  position: relative;
+}
+.shape3d-2 .obj-card { transform: rotateY(14deg) rotateX(-6deg); }
+.shape3d-3 .obj-card { transform: rotateY(-10deg) rotateX(12deg); }
+
+.obj-card-shadow {
+  position: absolute;
+  bottom: -18px;
+  left: 10%;
+  width: 80%;
+  height: 18px;
+  background: rgba(212,175,55,0.07);
+  filter: blur(10px);
+  border-radius: 50%;
+}
+
+/* header dots */
+.obj-card-header {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.obj-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(212,175,55,0.35);
+}
+.obj-dot:first-child { background: rgba(212,175,55,0.7); }
+
+/* label */
+.obj-label {
+  font-size: 0.62rem;
+  font-family: var(--font-mono, monospace);
+  color: rgba(212,175,55,0.55);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* ── Chart (BI card) ── */
+.obj-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 52px;
+  padding: 4px 0;
+}
+.obj-bar {
+  flex: 1;
+  height: var(--h, 50%);
+  background: linear-gradient(to top, rgba(212,175,55,0.7), rgba(212,175,55,0.15));
+  border-radius: 3px 3px 0 0;
+  animation: bar-grow 1.2s ease-out both;
+}
+.obj-bar:nth-child(1) { animation-delay: 0.1s; }
+.obj-bar:nth-child(2) { animation-delay: 0.2s; }
+.obj-bar:nth-child(3) { animation-delay: 0.3s; }
+.obj-bar:nth-child(4) { animation-delay: 0.4s; }
+.obj-bar:nth-child(5) { animation-delay: 0.5s; }
+@keyframes bar-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+/* ── Flow (Automações card) ── */
+.obj-flow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 4px;
+}
+.obj-node {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212,175,55,0.6);
+  background: rgba(212,175,55,0.08);
+  flex-shrink: 0;
+}
+.obj-node-start { background: rgba(212,175,55,0.3); }
+.obj-node-end   { border-color: rgba(212,175,55,0.3); }
+.obj-flow-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(212,175,55,0.5), rgba(212,175,55,0.15));
+  position: relative;
+}
+.obj-flow-line::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid rgba(212,175,55,0.4);
+  border-right: 1px solid rgba(212,175,55,0.4);
+  transform: rotate(45deg);
+}
+
+/* ── List (CRM card) ── */
+.obj-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 6px 0;
+}
+.obj-list-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.obj-check {
+  font-size: 0.6rem;
+  color: rgba(212,175,55,0.8);
+  width: 12px;
+  flex-shrink: 0;
+}
+.obj-check.pending { color: rgba(212,175,55,0.3); }
+.obj-line-txt {
+  height: 6px;
+  width: 100%;
+  border-radius: 3px;
+  background: rgba(212,175,55,0.15);
+}
+
+/* flutuação */
+@keyframes float3d-1 {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-18px); }
+}
+@keyframes float3d-2 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  40%       { transform: translateY(-12px) translateX(6px); }
+  70%       { transform: translateY(6px)  translateX(-4px); }
+}
+@keyframes float3d-3 {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-22px); }
+}
+
+/* ocultar em mobile pequeno */
+@media (max-width: 640px) { .hero-3d-scene { display: none; } }
+
 /* ── Section base ── */
 .section-header {
   text-align: center;
@@ -431,6 +604,7 @@ body {
   backdrop-filter: blur(10px);
   border: 1px solid var(--border);
   border-radius: 16px;
+  overflow: hidden;
   transition: all 0.4s var(--ease);
   display: flex;
   flex-direction: column;
@@ -499,6 +673,20 @@ body {
   color: var(--gold);
   letter-spacing: 0.04em;
   margin-bottom: 0.75rem;
+}
+
+.product-media {
+  margin: -2.5rem -2.5rem 1.5rem;
+  aspect-ratio: 16 / 9;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .product-top h3 {
@@ -1153,6 +1341,17 @@ body {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  overflow: hidden;
+}
+
+.preview-video-frame iframe,
+.preview-video-frame video,
+.preview-video-frame img {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+  display: block;
 }
 
 .preview-video-icon {
@@ -1194,6 +1393,18 @@ body {
   font-size: 0.75rem;
   color: var(--gray);
   font-style: normal;
+}
+
+.preview-video-placeholder {
+  padding: 1rem;
+}
+
+.preview-video-link {
+  margin-top: 0.75rem;
+}
+
+.preview-image-fallback {
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .preview-screen-list {
@@ -1279,6 +1490,21 @@ body {
   padding: 1.25rem 0;
   border-bottom: 1px solid var(--border);
   margin-bottom: 1.25rem;
+}
+
+.details-media {
+  margin: 1.25rem 0 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.details-media img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
 }
 
 .details-modal-full-desc {
@@ -1387,6 +1613,10 @@ body {
 
   .details-modal-inner {
     padding: 1.5rem;
+  }
+
+  .product-media {
+    margin: -2.5rem -2.5rem 1.25rem;
   }
 
   .details-cta-row {

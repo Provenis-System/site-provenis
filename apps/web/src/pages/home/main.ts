@@ -1,4 +1,8 @@
 import { API_CONFIG } from '../../lib/api.js';
+import { initLoader } from '../../lib/loader.js';
+
+// Iniciar tela de carregamento imediatamente
+initLoader();
 
 // Mobile menu toggle
 const menuToggle = document.querySelector('.menu-toggle') as HTMLButtonElement | null

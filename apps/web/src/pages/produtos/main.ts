@@ -57,8 +57,92 @@ interface ProdutoDirectus {
   funcionalidades: string[]
   funcionalidades_expandaveis: Array<{ titulo: string; subitens: string[] }> | null
   integracoes: string[]
+  imagem_url: string | null
+  video_url: string | null
   ordem: number
   ativo: boolean
+}
+
+function normalizeMediaUrl(value: string | null | undefined): string | null {
+  const normalized = value?.trim()
+  if (!normalized) return null
+
+  try {
+    if (normalized.startsWith('//')) return `${window.location.protocol}${normalized}`
+    if (normalized.startsWith('/')) return new URL(normalized, window.location.origin).toString()
+    if (/^https?:\/\//i.test(normalized)) return new URL(normalized).toString()
+  } catch {
+    return null
+  }
+
+  return null
+}
+
+function getYouTubeEmbed(url: string): string | null {
+  try {
+    const parsed = new URL(url)
+    if (parsed.hostname.includes('youtu.be')) {
+      const videoId = parsed.pathname.replace('/', '')
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null
+    }
+    if (parsed.hostname.includes('youtube.com')) {
+      const videoId = parsed.searchParams.get('v')
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null
+    }
+  } catch {
+    return null
+  }
+
+  return null
+}
+
+function getVimeoEmbed(url: string): string | null {
+  const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/i)
+  return match ? `https://player.vimeo.com/video/${match[1]}` : null
+}
+
+function renderPreviewMedia(p: ProdutoDirectus): string {
+  const videoUrl = normalizeMediaUrl(p.video_url)
+  const imageUrl = normalizeMediaUrl(p.imagem_url)
+
+  if (videoUrl) {
+    const youtubeEmbed = getYouTubeEmbed(videoUrl)
+    if (youtubeEmbed) {
+      return `<iframe src="${youtubeEmbed}" title="Demonstração de ${p.titulo}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
+    }
+
+    const vimeoEmbed = getVimeoEmbed(videoUrl)
+    if (vimeoEmbed) {
+      return `<iframe src="${vimeoEmbed}" title="Demonstração de ${p.titulo}" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+    }
+
+    if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(videoUrl)) {
+      return `<video controls playsinline preload="metadata" poster="${imageUrl || ''}"><source src="${videoUrl}"></video>`
+    }
+
+    return `
+      <div class="preview-video-text preview-video-placeholder">
+        <p>Vídeo disponível</p>
+        <span>${p.titulo}</span>
+        <a class="btn btn-secondary preview-video-link" href="${videoUrl}" target="_blank" rel="noopener noreferrer">Abrir vídeo</a>
+      </div>`
+  }
+
+  if (imageUrl) {
+    return `<img class="preview-image-fallback" src="${imageUrl}" alt="Preview de ${p.titulo}" loading="lazy" />`
+  }
+
+  return `
+    <div class="preview-video-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <polygon points="8,5 19,12 8,19" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="preview-video-text preview-video-placeholder">
+      <p>Demonstração em vídeo</p>
+      <span>Demonstração — ${p.titulo}</span>
+      <em>Disponível em breve</em>
+    </div>`
 }
 
 // ── Render dos cards ──
@@ -96,6 +180,10 @@ function renderCard(p: ProdutoDirectus): string {
   const isAccent = p.slug === 'custom'
   const cardClass = `product-card${isFeatured ? ' featured' : ''}${isAccent ? ' accent' : ''}`
   const badgeHtml = p.badge ? `<div class="product-badge">${p.badge}</div>` : ''
+  const imageUrl = normalizeMediaUrl(p.imagem_url)
+  const mediaHtml = imageUrl
+    ? `<div class="product-media"><img src="${imageUrl}" alt="Capa do produto ${p.titulo}" loading="lazy" /></div>`
+    : ''
   const listHtml = p.funcionalidades_expandaveis && p.funcionalidades_expandaveis.length > 0
     ? renderExpandableList(p.funcionalidades_expandaveis)
     : renderSimpleList(p.funcionalidades || [])
@@ -103,6 +191,7 @@ function renderCard(p: ProdutoDirectus): string {
   return `
     <article class="${cardClass}" data-product="${p.slug}">
       ${badgeHtml}
+      ${mediaHtml}
       <div class="product-top">
         <span class="product-tag">${p.tag}</span>
         <h3>${p.titulo}</h3>
@@ -124,6 +213,7 @@ const modalDetails = document.getElementById('modal-details') as HTMLElement | n
 const previewTagEl = document.getElementById('preview-tag') as HTMLElement | null
 const previewTitleEl = document.getElementById('preview-title') as HTMLElement | null
 const previewVideoLabelEl = document.getElementById('preview-video-label-text') as HTMLElement | null
+const previewVideoFrameEl = document.getElementById('preview-video-frame') as HTMLElement | null
 const previewScreenListEl = document.getElementById('preview-screen-list') as HTMLElement | null
 const detailsContentEl = document.getElementById('details-content') as HTMLElement | null
 
@@ -144,6 +234,7 @@ function openPreview(p: ProdutoDirectus) {
   if (previewTagEl) previewTagEl.textContent = p.tag
   if (previewTitleEl) previewTitleEl.textContent = p.titulo
   if (previewVideoLabelEl) previewVideoLabelEl.textContent = `Demonstração — ${p.titulo}`
+  if (previewVideoFrameEl) previewVideoFrameEl.innerHTML = renderPreviewMedia(p)
   if (previewScreenListEl) {
     const feats = p.funcionalidades || []
     previewScreenListEl.innerHTML = feats.slice(0, 5).map(f => `
@@ -158,6 +249,10 @@ function openPreview(p: ProdutoDirectus) {
 function openDetails(p: ProdutoDirectus) {
   if (!modalDetails || !detailsContentEl) return
   const badgeHtml = p.badge ? `<span class="modal-badge">${p.badge}</span>` : ''
+  const imageUrl = normalizeMediaUrl(p.imagem_url)
+  const mediaHtml = imageUrl
+    ? `<div class="details-media"><img src="${imageUrl}" alt="Imagem do produto ${p.titulo}" loading="lazy" /></div>`
+    : ''
   const intHtml = (p.integracoes || []).length
     ? `<div class="details-section-label" style="margin-top:0">Integra com</div>
        <div class="details-integrations-row">
@@ -169,6 +264,7 @@ function openDetails(p: ProdutoDirectus) {
     <div class="details-modal-inner">
       <div><span class="modal-product-tag">${p.tag}</span>${badgeHtml}</div>
       <h2>${p.titulo}</h2>
+      ${mediaHtml}
       <p class="details-modal-summary">${p.resumo}</p>
       <p class="details-modal-full-desc">${p.descricao_completa || ''}</p>
       <div class="details-section-label">Funcionalidades completas</div>
