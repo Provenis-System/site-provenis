@@ -86,10 +86,8 @@ Favicon configurado (PNG + SVG):
   - `web/` (frontend)
   - `api/` (backend)
 - `docs/` (documentação)
-- `.github/workflows/` (CI/CD para GHCR)
 - `Dockerfile.web` / `Dockerfile.api` (build produção)
 - `docker-compose.prod.yml` (produção build local)
-- `docker-compose.prod.ghcr.yml` (produção via imagens GHCR)
 - `.env.production.example` (exemplo de variáveis)
 
 ### Web (Vite multipage)
@@ -325,14 +323,6 @@ Opcional:
 1) Ajuste `.env`
 2) `docker compose -f docker-compose.prod.yml up -d --build`
 
-### Deploy puxando imagens do GHCR (sem build no VPS)
-- Workflow: `.github/workflows/docker-publish-ghcr.yml`
-- Override: `docker-compose.prod.ghcr.yml`
-
-Comandos:
-1) `docker login ghcr.io`
-2) `GITHUB_REPOSITORY=<owner>/<repo> docker compose -f docker-compose.prod.yml -f docker-compose.prod.ghcr.yml up -d`
-
 ---
 
 ## 10) Checklist de replicação (para outra IA)
@@ -380,8 +370,7 @@ REQUISITOS OBRIGATÓRIOS
      - apps/api
      - docs
      - Dockerfile.web, Dockerfile.api
-     - docker-compose.prod.yml e docker-compose.prod.ghcr.yml
-     - .github/workflows/docker-publish-ghcr.yml
+     - docker-compose.prod.yml
    - WEB (Vite): root deve ser apps/web/src
      - apps/web/src/index.html (redirect para /pages/home/index.html)
      - apps/web/src/pages/home/{index.html,style.css,main.ts}
@@ -460,10 +449,6 @@ REQUISITOS OBRIGATÓRIOS
      - api entra também numa rede externa do Postgres (name: postgresql_provenis_default)
    - Dockerfile.web: build Vite e copiar dist para Nginx.
    - Dockerfile.api: build TS e rodar node dist/main.js.
-
-8) CI/CD (opcional)
-   - Workflow GHCR que builda e publica imagens -api e -web em push na main.
-   - docker-compose.prod.ghcr.yml com override para usar imagens do GHCR.
 
 ENTREGÁVEIS
 1) Estrutura completa de pastas + arquivos essenciais.

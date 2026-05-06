@@ -1,6 +1,0 @@
-services:
-  api:
-    image: ghcr.io/${GITHUB_REPOSITORY:-owner/repo}-api:${IMAGE_TAG:-latest}
-
-  web:
-    image: ghcr.io/${GITHUB_REPOSITORY:-owner/repo}-web:${IMAGE_TAG:-latest}
