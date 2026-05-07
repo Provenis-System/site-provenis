@@ -784,12 +784,6 @@ function openModal(seg: Segment) {
           `).join('')}
         </ul>
       </div>
-      <div class="seg-modal-tech">
-        <h4>Tecnologias usadas</h4>
-        <div class="tech-badges">
-          ${seg.tech.map(t => `<span class="tech-badge" style="border-color:${seg.heroColor}40;color:${seg.heroColor}">${t}</span>`).join('')}
-        </div>
-      </div>
       <a href="/#contact" class="seg-modal-cta" style="background:${seg.gradient}">
         Quero para meu negócio
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>

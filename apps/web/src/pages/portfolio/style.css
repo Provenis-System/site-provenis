@@ -365,8 +365,7 @@ body {
 }
 
 .seg-modal-features { margin: 2rem 0; }
-.seg-modal-features h4,
-.seg-modal-tech h4 {
+.seg-modal-features h4 {
   font-size: 0.875rem; font-weight: 700; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--gray); margin-bottom: 1rem;
 }
@@ -376,14 +375,6 @@ body {
   font-size: 0.9375rem; color: var(--white); line-height: 1.5;
 }
 .check-icon { flex-shrink: 0; margin-top: 2px; }
-
-.seg-modal-tech { margin: 2rem 0; }
-.tech-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.tech-badge {
-  padding: 0.3rem 0.875rem; border-radius: 100px; font-size: 0.8125rem;
-  font-weight: 500; border: 1px solid;
-  background: rgba(255,255,255,0.04);
-}
 
 .seg-modal-cta {
   display: inline-flex; align-items: center; gap: 0.625rem;
@@ -435,13 +426,31 @@ body {
 /* ── Stack ───────────────────────────────────────────────────────── */
 .stack-section { padding: 8rem 0; border-top: 1px solid var(--border); }
 .stack-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
-.stack-group h4 { color: var(--gold); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.25rem; }
+.stack-group {
+  padding: 1.5rem;
+  background: rgba(26, 26, 26, 0.42);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.stack-group h4 { color: var(--gold); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.25rem; }
 .stack-items { display: flex; flex-direction: column; gap: 0.625rem; }
 .stack-item {
-  padding: 0.625rem 1rem; background: rgba(26, 26, 26, 0.6);
-  border: 1px solid var(--border); border-radius: 8px;
+  position: relative;
+  padding: 0.625rem 1rem 0.625rem 2rem; background: rgba(10, 10, 10, 0.48);
+  border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 8px;
   font-size: 0.9375rem; color: var(--gray-light);
   transition: all 0.3s var(--ease);
+}
+.stack-item::before {
+  content: '';
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  transform: translateY(-50%);
 }
 .stack-item:hover { border-color: var(--gold); color: var(--white); }
 
