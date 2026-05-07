@@ -66,6 +66,55 @@ function observeFade(el: HTMLElement, delay = 0) {
 document.querySelectorAll<HTMLElement>(
   '.number-card, .spec-card, .process-step, .stack-group, .growth-panel'
 ).forEach((el, i) => observeFade(el, i * 80));
+
+// Animar barras de progresso no scroll
+const growthBars = document.querySelectorAll<HTMLElement>('.growth-bar span');
+growthBars.forEach(bar => {
+  const target = bar.style.width;
+  bar.style.width = '0';
+  bar.dataset.targetWidth = target;
+});
+const barObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bars = (entry.target as HTMLElement).querySelectorAll<HTMLElement>('.growth-bar span');
+        bars.forEach((bar, i) => {
+          setTimeout(() => {
+            bar.style.width = bar.dataset.targetWidth ?? '0';
+          }, i * 150);
+        });
+        barObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.4 }
+);
+const growthPanel = document.querySelector('.growth-panel');
+if (growthPanel) barObserver.observe(growthPanel);
+
+// Animar entrada dos growth-items com stagger
+document.querySelectorAll<HTMLElement>('.growth-items > div').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateX(-16px)';
+  el.style.transition = `opacity 0.5s ease ${200 + i * 120}ms, transform 0.5s ease ${200 + i * 120}ms`;
+});
+const growthItemsObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        (entry.target as HTMLElement).querySelectorAll<HTMLElement>('.growth-items > div').forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateX(0)';
+        });
+        growthItemsObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.3 }
+);
+const growthItems = document.querySelector('.growth-items');
+if (growthItems) growthItemsObserver.observe(growthItems);
 // ------------------------------------------------------------
 // Dados dos segmentos
 // ------------------------------------------------------------

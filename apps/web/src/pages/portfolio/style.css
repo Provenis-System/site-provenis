@@ -296,6 +296,7 @@ body {
   height: 100%;
   background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
   border-radius: inherit;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .growth-items {
   display: grid;
@@ -308,6 +309,13 @@ body {
   background: rgba(255,255,255,0.035);
   border: 1px solid rgba(212, 175, 55, 0.12);
   border-radius: 14px;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  cursor: default;
+}
+.growth-items > div:hover {
+  background: rgba(212, 175, 55, 0.07);
+  border-color: rgba(212, 175, 55, 0.35);
+  transform: translateX(4px);
 }
 .growth-dot {
   flex-shrink: 0;
@@ -317,6 +325,10 @@ body {
   border-radius: 50%;
   background: var(--gold);
   box-shadow: 0 0 0 5px rgba(212, 175, 55, 0.09);
+  transition: box-shadow 0.3s var(--ease);
+}
+.growth-items > div:hover .growth-dot {
+  box-shadow: 0 0 0 7px rgba(212, 175, 55, 0.18), 0 0 12px rgba(212, 175, 55, 0.4);
 }
 .growth-items strong {
   display: block;
@@ -533,16 +545,28 @@ body {
 .spec-card {
   padding: 2.5rem 2rem; background: rgba(10, 10, 10, 0.6);
   border: 1px solid var(--border); border-radius: 16px;
-  transition: all 0.3s var(--ease);
+  transition: border-color 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease);
 }
-.spec-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(212, 175, 55, 0.1); }
-.spec-icon { color: var(--gold); margin-bottom: 1.25rem; }
+.spec-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 56px rgba(212, 175, 55, 0.12);
+  background: rgba(212, 175, 55, 0.04);
+}
+.spec-icon { color: var(--gold); margin-bottom: 1.25rem; transition: transform 0.35s var(--ease); }
+.spec-card:hover .spec-icon { transform: scale(1.12); }
 .spec-card h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem; }
 .spec-card p { color: var(--gray-light); font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1.5rem; }
 .spec-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .spec-tags li {
   padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.8125rem;
   background: rgba(212, 175, 55, 0.08); border: 1px solid var(--border); color: var(--gray-light);
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.spec-card:hover .spec-tags li {
+  background: rgba(212, 175, 55, 0.14);
+  border-color: rgba(212, 175, 55, 0.3);
+  color: var(--gold-light);
 }
 
 /* ── Process ─────────────────────────────────────────────────────── */
