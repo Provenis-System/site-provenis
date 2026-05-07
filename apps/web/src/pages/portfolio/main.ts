@@ -64,7 +64,7 @@ function observeFade(el: HTMLElement, delay = 0) {
   fadeObserver.observe(el);
 }
 document.querySelectorAll<HTMLElement>(
-  '.number-card, .spec-card, .process-step, .stack-group, .about-card'
+  '.number-card, .spec-card, .process-step, .stack-group, .growth-panel'
 ).forEach((el, i) => observeFade(el, i * 80));
 // ------------------------------------------------------------
 // Dados dos segmentos
