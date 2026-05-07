@@ -123,9 +123,10 @@ body {
   transition: opacity 0.3s var(--ease);
 }
 
-.logo-mark {
+.logo-full {
   display: block;
-  width: 32px;
+  height: 38px;
+  width: auto;
   height: 32px;
   object-fit: contain;
 }

@@ -73,7 +73,7 @@ body {
   transition: opacity 0.3s var(--ease);
 }
 .logo:hover { opacity: 0.8; }
-.logo-mark { display: block; width: 32px; height: 32px; object-fit: contain; }
+.logo-full { display: block; height: 38px; width: auto; object-fit: contain; }
 
 .nav-icon-btn {
   display: inline-flex; align-items: center; justify-content: center;
