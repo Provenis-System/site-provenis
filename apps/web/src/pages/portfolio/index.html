@@ -178,32 +178,49 @@
         </div>
       </section>
 
-      <!-- ── Projetos em destaque ───────────────────────────────────── -->
-      <section id="projetos" class="projects-section">
+      <!-- ── Segmentos ────────────────────────────────────────────── -->
+      <section id="segmentos" class="segments-section">
         <div class="container">
           <div class="section-header">
-            <div class="label">Portfólio</div>
-            <h2 class="section-title">Projetos que entregamos</h2>
+            <div class="label">Mercados</div>
+            <h2 class="section-title">Segmentos que atendemos</h2>
             <p class="section-desc">
-              Exemplos reais do que desenvolvemos. Cada projeto tem contexto, tecnologia e resultado documentados.
+              Sites, bots e automações — desenvolvemos soluções específicas para cada nicho.<br>
+              Clique em um segmento para ver o que entregamos para ele.
             </p>
           </div>
 
-          <div class="projects-grid" id="projects-grid">
-            <!-- Carregado via API -->
-            <div class="projects-loading">Carregando projetos...</div>
+          <div class="seg-tabs" role="tablist">
+            <button class="seg-tab active" data-category="sites" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              Sites
+            </button>
+            <button class="seg-tab" data-category="bots" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 15h.01M16 15h.01"/></svg>
+              Bots Discord
+            </button>
+            <button class="seg-tab" data-category="automacoes" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.65 19.79 19.79 0 01.22 1.05 2 2 0 012.22 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 10.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              Automações WhatsApp
+            </button>
           </div>
 
-          <div class="projects-cta">
-            <a href="/pages/trabalhos/index.html" class="btn btn-secondary">
-              Ver todos os projetos
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </a>
+          <div class="seg-grid" id="seg-grid">
+            <!-- Renderizado via JS -->
           </div>
         </div>
       </section>
+
+      <!-- ── Modal de Segmento ────────────────────────────────────── -->
+      <div class="seg-modal" id="seg-modal" aria-hidden="true">
+        <div class="seg-modal-overlay" id="seg-modal-overlay"></div>
+        <div class="seg-modal-panel" id="seg-modal-panel" role="dialog" aria-modal="true">
+          <button class="seg-modal-close" id="seg-modal-close" aria-label="Fechar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <div id="seg-modal-content"></div>
+        </div>
+      </div>
 
       <!-- ── Especializações ───────────────────────────────────────── -->
       <section class="specs-section">
@@ -445,6 +462,7 @@
 
         <div class="footer-bottom">
           <p>&copy; <span id="year"></span> Provenis Sistem. Todos os direitos reservados.</p>
+          <p class="footer-cnpj">CNPJ 66.622.206/0001-61</p>
         </div>
       </div>
     </footer>
