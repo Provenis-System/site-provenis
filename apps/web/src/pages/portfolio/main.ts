@@ -233,7 +233,6 @@ async function loadProjects() {
                 <div class="section-label">${meta.label}</div>
                 <h2>${group.label}</h2>
                 <p>${meta.desc}</p>
-                <span class="group-count">${count} projeto${count !== 1 ? 's' : ''}</span>
               </div>
               <div class="showcase-split">
                 <div class="showcase-split-cards">
