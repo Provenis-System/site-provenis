@@ -621,12 +621,14 @@ body { font-family: var(--font-sans); background: var(--black); color: var(--whi
   align-items: center;
   justify-content: center;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s ease;
   cursor: zoom-out;
 }
 
 .lightbox-overlay.open {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .lightbox-img {
