@@ -27,14 +27,6 @@ function cardMarkup(project: ProjectListItem, index: number) {
   const num = String(index + 1).padStart(2, '0');
   return `
     <article class="project-card">
-      <div class="project-card-top">
-        <div class="project-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-          </svg>
-        </div>
-        <span class="project-num">${num}</span>
-      </div>
       <div class="project-title-row">
         <h3>${project.title}</h3>
         ${project.slug ? `<a href="/trabalhos/${project.slug}" class="project-link" aria-label="Ver ${project.title}">
