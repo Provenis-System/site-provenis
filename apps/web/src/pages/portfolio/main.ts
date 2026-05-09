@@ -24,34 +24,18 @@ const projectCountEl = document.getElementById('project-count');
 const projectsGrid = document.getElementById('projects-grid');
 
 function cardMarkup(project: ProjectListItem) {
-  const tagsMarkup = project.tags.length
-    ? `
-      <div class="project-tags">
-        ${project.tags
-          .slice(0, 3)
-          .map((tag) => `<span>${tag}</span>`)
-          .join('')}
-      </div>
-    `
-    : '';
-
   return `
     <article class="project-card">
-      <div class="project-topline">
-        ${project.featured ? '<span class="project-badge">Destaque</span>' : ''}
-      </div>
       <h3>${project.title}</h3>
       <p>${project.description}</p>
-      ${tagsMarkup}
     </article>
   `;
 }
 
-const CATEGORY_ORDER = ['sites', 'automações', 'bots discord', 'bots', 'automacoes', 'automações'];
-
 function categoryLabel(slug: string, name: string): string {
   const map: Record<string, string> = {
     sites: 'Sites',
+    sistemas: 'Sistemas',
     automacoes: 'Automações',
     'automações': 'Automações',
     'bots-discord': 'Bots Discord',
@@ -62,7 +46,7 @@ function categoryLabel(slug: string, name: string): string {
 }
 
 function groupByCategory(projects: ProjectListItem[]) {
-  const order = ['sites', 'automacoes', 'automações', 'bots-discord', 'bots'];
+  const order = ['sites', 'sistemas', 'automacoes', 'automações', 'bots-discord', 'bots'];
   const map = new Map<string, { label: string; items: ProjectListItem[] }>();
 
   for (const p of projects) {
@@ -79,8 +63,6 @@ function groupByCategory(projects: ProjectListItem[]) {
     return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
   });
 }
-
-void CATEGORY_ORDER;
 
 async function loadProjects() {
   if (!projectsGrid) return;
