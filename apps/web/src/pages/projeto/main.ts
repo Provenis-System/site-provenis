@@ -451,7 +451,7 @@ const PROJECTS: Record<string, ProjectData> = {
 
 function galleryMarkup(images: string[]): string {
   const all = [...images, ...images];
-  const items = all.map(src => `<div class="gallery-item"><img src="${src}" alt="Print do sistema" loading="lazy" /></div>`).join('');
+  const items = all.map(src => `<div class="gallery-item" data-lightbox="${src}"><img src="${src}" alt="Print do sistema" loading="lazy" /></div>`).join('');
   return `
     <section class="proj-gallery">
       <div class="gallery-label">Galeria do sistema</div>
@@ -554,6 +554,43 @@ if (project) {
   renderNotFound(slug);
 }
 
+function initLightbox(): void {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = `<button class="lightbox-close" aria-label="Fechar">&times;</button><img class="lightbox-img" src="" alt="" />`;
+  document.body.appendChild(overlay);
+
+  const img = overlay.querySelector<HTMLImageElement>('.lightbox-img')!;
+  const closeBtn = overlay.querySelector<HTMLButtonElement>('.lightbox-close')!;
+
+  function open(src: string): void {
+    img.src = src;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close(): void {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { img.src = ''; }, 350);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-lightbox]').forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const src = el.dataset.lightbox!;
+      open(src);
+    });
+  });
+
+  overlay.addEventListener('click', close);
+  closeBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+  });
+}
+
 function initReveal(): void {
   // Seleciona todos os blocos que devem animar ao entrar na viewport
   const targets = document.querySelectorAll<HTMLElement>(
@@ -569,7 +606,8 @@ function initReveal(): void {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           (entry.target as HTMLElement).classList.add('revealed');
-          io.unobserve(entry.target);
+        } else {
+          (entry.target as HTMLElement).classList.remove('revealed');
         }
       });
     },
@@ -578,8 +616,12 @@ function initReveal(): void {
 
   targets.forEach((el) => io.observe(el));
 
-  // Hero entra imediatamente após render
-  document.querySelectorAll<HTMLElement>('.proj-hero .hero-copy, .proj-hero > .container > .hero-split > div:last-child').forEach((el, i) => {
-    setTimeout(() => el.classList.add('revealed'), i * 150 + 80);
+  initLightbox();
+
+  // Hero entra imediatamente (já está na viewport ao carregar)
+  requestAnimationFrame(() => {
+    document.querySelectorAll<HTMLElement>('.proj-hero .hero-copy, .proj-hero > .container > .hero-split > div:last-child').forEach((el) => {
+      el.classList.add('revealed');
+    });
   });
 }
