@@ -449,6 +449,19 @@ const PROJECTS: Record<string, ProjectData> = {
 
 // ── Renderer ───────────────────────────────────────────────────────────────────
 
+function galleryMarkup(images: string[]): string {
+  const all = [...images, ...images];
+  const items = all.map(src => `<div class="gallery-item"><img src="${src}" alt="Print do sistema" loading="lazy" /></div>`).join('');
+  return `
+    <section class="proj-gallery">
+      <div class="gallery-label">Galeria do sistema</div>
+      <div class="gallery-track-wrapper">
+        <div class="gallery-track">${items}</div>
+      </div>
+    </section>
+  `;
+}
+
 function sectionMarkup(s: ProjectSection, i: number): string {
   const reverse = i % 2 === 1;
   const itemsHtml = s.items?.length
