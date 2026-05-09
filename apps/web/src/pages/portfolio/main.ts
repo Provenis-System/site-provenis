@@ -92,18 +92,111 @@ function groupByCategory(projects: ProjectListItem[]) {
   });
 }
 
-const CATEGORY_META: Record<string, { icon: string; desc: string }> = {
+const CATEGORY_META: Record<string, { desc: string; label: string; features: { title: string; desc: string; icon: string }[]; visual: string }> = {
   'Plataformas Web Corporativas': {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
-    desc: 'Sites institucionais, e-commerces e plataformas digitais desenvolvidos para operar em produção com alta performance e escalabilidade.',
+    label: 'Presença digital',
+    desc: 'Sites institucionais, e-commerces e plataformas digitais desenvolvidos para operar em produção com alta performance.',
+    features: [
+      { title: 'Design que converte', desc: 'UX/UI focado em resultados, não apenas beleza', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>` },
+      { title: 'Performance brutal', desc: 'Carregamento ultrarrápido e Core Web Vitals perfeitos', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg>` },
+      { title: 'Responsivo de verdade', desc: 'Experiência perfeita em qualquer dispositivo', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18H12.01"/></svg>` },
+    ],
+    visual: `
+      <div class="showcase-mockup browser-mockup">
+        <div class="browser-header">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 6C10 8.209 8.209 10 6 10C3.791 10 2 8.209 2 6C2 3.791 3.791 2 6 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>seunegocio.com.br</span>
+          </div>
+        </div>
+        <div class="browser-content">
+          <div class="website-scroll">
+            <div class="mock-section hero-mock">
+              <div class="mock-nav"><div class="mock-logo"></div><div class="mock-menu"><span></span><span></span><span></span></div></div>
+              <div class="mock-hero-content"><div class="mock-title"></div><div class="mock-subtitle"></div><div class="mock-buttons"><div class="mock-btn primary"></div><div class="mock-btn secondary"></div></div></div>
+            </div>
+            <div class="mock-section cards-mock"><div class="mock-heading"></div><div class="mock-cards"><div class="mock-card"></div><div class="mock-card"></div><div class="mock-card"></div></div></div>
+            <div class="mock-section content-mock"><div class="mock-text-block"></div><div class="mock-image"></div></div>
+          </div>
+        </div>
+      </div>`,
   },
   'Automação Inteligente': {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M18 2v4h4"/></svg>`,
-    desc: 'Fluxos automatizados, integrações entre sistemas e processos que rodam 24/7 sem intervenção manual — liberando tempo para o que realmente importa.',
+    label: 'Eficiência operacional',
+    desc: 'Fluxos automatizados e integrações entre sistemas que rodam 24/7 sem intervenção manual — liberando tempo para o que importa.',
+    features: [
+      { title: 'Integrações sob medida', desc: 'APIs, webhooks e sistemas conectados de ponta a ponta', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>` },
+      { title: 'Execução contínua', desc: 'Processos rodando 24/7, sem falha humana', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>` },
+      { title: 'Notificações e alertas', desc: 'Dashboards e relatórios automáticos em tempo real', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>` },
+    ],
+    visual: `
+      <div class="showcase-mockup terminal-mockup">
+        <div class="terminal-header">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <span class="terminal-title">automation.log</span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line"><span class="t-green">✓</span> <span class="t-gray">[09:14:02]</span> Pedido #4821 processado</div>
+          <div class="terminal-line"><span class="t-green">✓</span> <span class="t-gray">[09:14:03]</span> E-mail de confirmação enviado</div>
+          <div class="terminal-line"><span class="t-green">✓</span> <span class="t-gray">[09:14:04]</span> Estoque atualizado → 47 un</div>
+          <div class="terminal-line"><span class="t-gold">→</span> <span class="t-gray">[09:14:05]</span> Webhook disparado</div>
+          <div class="terminal-line"><span class="t-green">✓</span> <span class="t-gray">[09:14:06]</span> CRM sincronizado</div>
+          <div class="terminal-line terminal-line-blink"><span class="t-gold">_</span></div>
+        </div>
+        <div class="terminal-stats">
+          <div class="t-stat"><span class="t-stat-val">99.9%</span><span class="t-stat-label">uptime</span></div>
+          <div class="t-stat"><span class="t-stat-val">24/7</span><span class="t-stat-label">execução</span></div>
+          <div class="t-stat"><span class="t-stat-val">0</span><span class="t-stat-label">falhas</span></div>
+        </div>
+      </div>`,
   },
   'Infraestrutura e Cloud': {
-    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
-    desc: 'Arquitetura de servidores, deploys em cloud e ambientes de produção configurados para disponibilidade máxima e custo otimizado.',
+    label: 'Ambiente de produção',
+    desc: 'Arquitetura de servidores, deploys em cloud e ambientes configurados para disponibilidade máxima e custo otimizado.',
+    features: [
+      { title: 'Alta disponibilidade', desc: 'Arquitetura tolerante a falhas com redundância', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>` },
+      { title: 'Deploy automatizado', desc: 'CI/CD com rollback e ambientes isolados', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>` },
+      { title: 'Monitoramento ativo', desc: 'Alertas, logs e métricas em tempo real', icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>` },
+    ],
+    visual: `
+      <div class="showcase-mockup infra-mockup">
+        <div class="infra-header">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <span class="terminal-title">infrastructure</span>
+        </div>
+        <div class="infra-body">
+          <div class="infra-node infra-node-main">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            <span>Cloud</span>
+            <span class="infra-badge">Online</span>
+          </div>
+          <div class="infra-connectors">
+            <div class="infra-line"></div>
+            <div class="infra-line"></div>
+            <div class="infra-line"></div>
+          </div>
+          <div class="infra-nodes-row">
+            <div class="infra-node">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+              <span>Web</span>
+            </div>
+            <div class="infra-node">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></ellipse></svg>
+              <span>DB</span>
+            </div>
+            <div class="infra-node">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <span>API</span>
+            </div>
+          </div>
+        </div>
+        <div class="terminal-stats">
+          <div class="t-stat"><span class="t-stat-val">99.9%</span><span class="t-stat-label">uptime</span></div>
+          <div class="t-stat"><span class="t-stat-val">&lt;50ms</span><span class="t-stat-label">latência</span></div>
+          <div class="t-stat"><span class="t-stat-val">auto</span><span class="t-stat-label">escala</span></div>
+        </div>
+      </div>`,
   },
 };
 
@@ -131,21 +224,26 @@ async function loadProjects() {
 
     projectsGrid.innerHTML = groups
       .map(
-        ([, group]) => {
-          const meta = CATEGORY_META[group.label] ?? { icon: '', desc: '' };
+        ([, group], groupIndex) => {
+          const meta = CATEGORY_META[group.label] ?? { label: '', desc: '', features: [], visual: '' };
           const count = group.items.length;
+          const reverse = groupIndex % 2 === 1;
+          const featuresHtml = meta.features
+            .map(f => `
+              <div class="use-case">
+                <div class="use-case-icon">${f.icon}</div>
+                <div><h4>${f.title}</h4><p>${f.desc}</p></div>
+              </div>`)
+            .join('');
           return `
             <div class="project-group">
-              <div class="group-header-card">
-                <div class="group-header-left">
-                  <div class="group-header-icon">${meta.icon}</div>
-                  <div class="group-header-text">
-                    <div class="group-header-top">
-                      <h2 class="group-header-title">${group.label}</h2>
-                      <span class="group-header-count">${count} projeto${count !== 1 ? 's' : ''}</span>
-                    </div>
-                    <p class="group-header-desc">${meta.desc}</p>
-                  </div>
+              <div class="showcase-block${reverse ? ' reverse' : ''}">
+                <div class="showcase-visual">${meta.visual}</div>
+                <div class="showcase-content">
+                  <div class="section-label">${meta.label}</div>
+                  <h2>${group.label}</h2>
+                  <p>${meta.desc}</p>
+                  <div class="use-cases">${featuresHtml}</div>
                 </div>
               </div>
               <div class="projects-group-grid">
