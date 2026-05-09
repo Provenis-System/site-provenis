@@ -211,8 +211,7 @@ async function loadProjects() {
   if (!projectsGrid) return;
 
   try {
-    const apiProjects = await projectsAPI.getProjects();
-    const projects = [...apiProjects, ...STATIC_PROJECTS];
+    const projects = [...STATIC_PROJECTS];
 
     if (projectCountEl) {
       projectCountEl.textContent = String(projects.length);
