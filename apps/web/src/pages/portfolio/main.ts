@@ -224,30 +224,22 @@ async function loadProjects() {
 
     projectsGrid.innerHTML = groups
       .map(
-        ([, group], groupIndex) => {
+        ([, group]) => {
           const meta = CATEGORY_META[group.label] ?? { label: '', desc: '', features: [], visual: '' };
           const count = group.items.length;
-          const reverse = groupIndex % 2 === 1;
-          const featuresHtml = meta.features
-            .map(f => `
-              <div class="use-case">
-                <div class="use-case-icon">${f.icon}</div>
-                <div><h4>${f.title}</h4><p>${f.desc}</p></div>
-              </div>`)
-            .join('');
           return `
             <div class="project-group">
-              <div class="showcase-block${reverse ? ' reverse' : ''}">
-                <div class="showcase-visual">${meta.visual}</div>
-                <div class="showcase-content">
-                  <div class="section-label">${meta.label}</div>
-                  <h2>${group.label}</h2>
-                  <p>${meta.desc}</p>
-                  <div class="use-cases">${featuresHtml}</div>
-                </div>
+              <div class="group-intro">
+                <div class="section-label">${meta.label}</div>
+                <h2>${group.label}</h2>
+                <p>${meta.desc}</p>
+                <span class="group-count">${count} projeto${count !== 1 ? 's' : ''}</span>
               </div>
-              <div class="projects-group-grid">
-                ${group.items.map((p, i) => cardMarkup(p, i)).join('')}
+              <div class="showcase-split">
+                <div class="showcase-split-cards">
+                  ${group.items.map((p, i) => cardMarkup(p, i)).join('')}
+                </div>
+                <div class="showcase-split-visual">${meta.visual}</div>
               </div>
             </div>
           `;
