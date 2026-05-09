@@ -50,34 +50,44 @@ function cardMarkup(project: ProjectListItem, index: number) {
   `;
 }
 
+const BOT_SLUGS = new Set(['bots', 'bots-discord', 'bots discord', 'discord']);
+
 function categoryLabel(slug: string, name: string): string {
   const map: Record<string, string> = {
-    sites: 'Sites',
-    sistemas: 'Sistemas',
-    automacoes: 'Automações',
-    'automações': 'Automações',
-    'bots-discord': 'Bots Discord',
-    bots: 'Bots Discord',
-    'bots discord': 'Bots Discord',
+    sites: 'Plataformas Web Corporativas',
+    sistemas: 'Plataformas Web Corporativas',
+    'plataformas-web': 'Plataformas Web Corporativas',
+    automacoes: 'Automação Inteligente',
+    'automações': 'Automação Inteligente',
+    automacao: 'Automação Inteligente',
+    cloud: 'Infraestrutura e Cloud',
+    infra: 'Infraestrutura e Cloud',
+    'infraestrutura': 'Infraestrutura e Cloud',
+    devops: 'Infraestrutura e Cloud',
   };
   return map[slug.toLowerCase()] ?? map[name.toLowerCase()] ?? name;
 }
 
 function groupByCategory(projects: ProjectListItem[]) {
-  const order = ['sites', 'sistemas', 'automacoes', 'automações', 'bots-discord', 'bots'];
+  const order = [
+    'Plataformas Web Corporativas',
+    'Automação Inteligente',
+    'Infraestrutura e Cloud',
+  ];
   const map = new Map<string, { label: string; items: ProjectListItem[] }>();
 
   for (const p of projects) {
-    const key = p.category.slug;
-    if (!map.has(key)) {
-      map.set(key, { label: categoryLabel(p.category.slug, p.category.name), items: [] });
+    if (BOT_SLUGS.has(p.category.slug.toLowerCase())) continue;
+    const label = categoryLabel(p.category.slug, p.category.name);
+    if (!map.has(label)) {
+      map.set(label, { label, items: [] });
     }
-    map.get(key)!.items.push(p);
+    map.get(label)!.items.push(p);
   }
 
   return [...map.entries()].sort(([a], [b]) => {
-    const ai = order.indexOf(a.toLowerCase());
-    const bi = order.indexOf(b.toLowerCase());
+    const ai = order.indexOf(a);
+    const bi = order.indexOf(b);
     return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
   });
 }
