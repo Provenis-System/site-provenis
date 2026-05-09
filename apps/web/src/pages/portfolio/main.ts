@@ -35,13 +35,8 @@ function cardMarkup(project: ProjectListItem, index: number) {
         </div>
         <span class="project-num">${num}</span>
       </div>
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
-      <div class="project-footer">
-        <span class="project-status">
-          <span class="status-dot"></span>
-          Entregue
-        </span>
+      <div class="project-title-row">
+        <h3>${project.title}</h3>
         ${project.slug ? `<a href="/trabalhos/${project.slug}" class="project-link" aria-label="Ver ${project.title}">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
         </a>` : ''}
