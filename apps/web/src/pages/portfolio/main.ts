@@ -92,6 +92,21 @@ function groupByCategory(projects: ProjectListItem[]) {
   });
 }
 
+const CATEGORY_META: Record<string, { icon: string; desc: string }> = {
+  'Plataformas Web Corporativas': {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+    desc: 'Sites institucionais, e-commerces e plataformas digitais desenvolvidos para operar em produção com alta performance e escalabilidade.',
+  },
+  'Automação Inteligente': {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M18 2v4h4"/></svg>`,
+    desc: 'Fluxos automatizados, integrações entre sistemas e processos que rodam 24/7 sem intervenção manual — liberando tempo para o que realmente importa.',
+  },
+  'Infraestrutura e Cloud': {
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>`,
+    desc: 'Arquitetura de servidores, deploys em cloud e ambientes de produção configurados para disponibilidade máxima e custo otimizado.',
+  },
+};
+
 async function loadProjects() {
   if (!projectsGrid) return;
 
@@ -116,17 +131,29 @@ async function loadProjects() {
 
     projectsGrid.innerHTML = groups
       .map(
-        ([, group]) => `
-          <div class="project-group">
-            <div class="project-group-header">
-              <span class="project-group-title">${group.label}</span>
-              <span class="project-group-count">${group.items.length} projeto${group.items.length !== 1 ? 's' : ''}</span>
+        ([, group]) => {
+          const meta = CATEGORY_META[group.label] ?? { icon: '', desc: '' };
+          const count = group.items.length;
+          return `
+            <div class="project-group">
+              <div class="group-header-card">
+                <div class="group-header-left">
+                  <div class="group-header-icon">${meta.icon}</div>
+                  <div class="group-header-text">
+                    <div class="group-header-top">
+                      <h2 class="group-header-title">${group.label}</h2>
+                      <span class="group-header-count">${count} projeto${count !== 1 ? 's' : ''}</span>
+                    </div>
+                    <p class="group-header-desc">${meta.desc}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="projects-group-grid">
+                ${group.items.map((p, i) => cardMarkup(p, i)).join('')}
+              </div>
             </div>
-            <div class="projects-group-grid">
-              ${group.items.map((p, i) => cardMarkup(p, i)).join('')}
-            </div>
-          </div>
-        `
+          `;
+        }
       )
       .join('');
 
