@@ -362,7 +362,7 @@ const PROJECTS: Record<string, ProjectData> = {
     category: 'Automação Inteligente',
     tagline: 'Gestão operacional, auditoria e inteligência analítica para o varejo.',
     desc: 'Plataforma corporativa desenvolvida para redes varejistas que precisam de controle centralizado, rastreabilidade total e inteligência analítica em tempo real sobre operações de prevenção de perdas.',
-    tags: ['Varejo', 'Prevenção de Perdas', 'Auditoria', 'BI', 'SaaS'],
+    tags: ['Varejo', 'Prevenção de Perdas', 'Auditoria', 'BI'],
     heroVisual: DASH_MOCKUP,
     sections: [
       {
@@ -375,7 +375,7 @@ const PROJECTS: Record<string, ProjectData> = {
       {
         label: 'Solução',
         title: 'Uma plataforma central para toda a operação',
-        desc: 'Desenvolvemos um sistema SaaS corporativo que centraliza todos os módulos de prevenção de perdas — do controle de usuários ao BI analítico — em uma única plataforma segura e escalável.',
+        desc: 'Desenvolvemos um sistema corporativo que centraliza todos os módulos de prevenção de perdas — do controle de usuários ao BI analítico — em uma única plataforma segura e escalável.',
         items: ['Módulos integrados em uma plataforma', 'Acesso por perfil e hierarquia', 'Dados em tempo real para todas as filiais', 'Escalável para qualquer volume de operação'],
         visual: HUB_MOCKUP,
       },
