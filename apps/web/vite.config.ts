@@ -10,8 +10,7 @@ export default defineConfig({
       input: {
         home: path.resolve(__dirname, 'src/pages/home/index.html'),
         about: path.resolve(__dirname, 'src/pages/about/index.html'),
-        trabalhos: path.resolve(__dirname, 'src/pages/trabalhos/index.html'),
-        portfolio: path.resolve(__dirname, 'src/pages/portfolio/index.html')
+        trabalhos: path.resolve(__dirname, 'src/pages/trabalhos/index.html')
       }
     }
   },
