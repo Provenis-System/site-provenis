@@ -525,6 +525,29 @@ body { font-family: var(--font-sans); background: var(--black); color: var(--whi
 }
 .btn-secondary:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); }
 
+/* ── Scroll Reveal ────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.proj-section.reverse .proj-visual.reveal {
+  transform: translateY(32px);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay para o visual (lado direito) */
+.proj-section .proj-visual.reveal {
+  transition-delay: 0.15s;
+}
+
 /* ── Gallery ──────────────────────────────────────────────── */
 .proj-gallery {
   padding: 4rem 0;

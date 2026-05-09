@@ -549,6 +549,37 @@ const project = PROJECTS[slug];
 
 if (project) {
   render(project);
+  initReveal();
 } else {
   renderNotFound(slug);
+}
+
+function initReveal(): void {
+  // Seleciona todos os blocos que devem animar ao entrar na viewport
+  const targets = document.querySelectorAll<HTMLElement>(
+    '.proj-section .proj-text, .proj-section .proj-visual, .proj-hero .hero-copy, .proj-hero > .container > .hero-split > div:last-child, .proj-cta .cta-inner, .proj-gallery'
+  );
+
+  targets.forEach((el) => {
+    el.classList.add('reveal');
+  });
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('revealed');
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  targets.forEach((el) => io.observe(el));
+
+  // Hero entra imediatamente após render
+  document.querySelectorAll<HTMLElement>('.proj-hero .hero-copy, .proj-hero > .container > .hero-split > div:last-child').forEach((el, i) => {
+    setTimeout(() => el.classList.add('revealed'), i * 150 + 80);
+  });
 }
