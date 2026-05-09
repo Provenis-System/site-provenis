@@ -1,3 +1,7 @@
+// ── Image assets ─────────────────────────────────────────────────────────────
+const _prevenaoImgs = import.meta.glob('./imagens_prevenção/*.png', { eager: true, query: '?url', import: 'default' });
+const GALLERY_PREVENCAO: string[] = Object.values(_prevenaoImgs) as string[];
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 interface ProjectSection {
@@ -15,6 +19,7 @@ interface ProjectData {
   desc: string;
   tags: string[];
   heroVisual: string;
+  gallery?: string[];
   sections: ProjectSection[];
   ctaTitle: string;
   ctaDesc: string;
@@ -364,6 +369,7 @@ const PROJECTS: Record<string, ProjectData> = {
     desc: 'Plataforma corporativa desenvolvida para redes varejistas que precisam de controle centralizado, rastreabilidade total e inteligência analítica em tempo real sobre operações de prevenção de perdas.',
     tags: ['Varejo', 'Prevenção de Perdas', 'Auditoria', 'BI'],
     heroVisual: DASH_MOCKUP,
+    gallery: GALLERY_PREVENCAO,
     sections: [
       {
         label: 'Contexto',
@@ -491,7 +497,10 @@ function render(project: ProjectData): void {
       </div>
     </section>
 
-    ${project.sections.map((s, i) => sectionMarkup(s, i)).join('')}
+    ${project.sections.map((s, i) => `
+      ${sectionMarkup(s, i)}
+      ${i === 0 && project.gallery?.length ? galleryMarkup(project.gallery) : ''}
+    `).join('')}
 
     <section class="proj-cta">
       <div class="container">
