@@ -192,11 +192,27 @@ const CATEGORY_META: Record<string, { desc: string; label: string; features: { t
   },
 };
 
+// Projetos estáticos (não vêm do banco, mas têm página dedicada)
+const STATIC_PROJECTS: ProjectListItem[] = [
+  {
+    id: -1,
+    title: 'Plataforma de Prevenção de Perdas',
+    slug: 'prevencao-de-perdas',
+    description: 'Plataforma corporativa para redes varejistas com controle centralizado, auditoria, simulados, recuperados e inteligência analítica em tempo real.',
+    tags: ['Varejo', 'Prevenção de Perdas', 'Auditoria', 'BI', 'SaaS'],
+    featured: true,
+    category: { id: -1, slug: 'automacoes', name: 'Automação Inteligente' },
+    thumbnail: null,
+    stats: [],
+  },
+];
+
 async function loadProjects() {
   if (!projectsGrid) return;
 
   try {
-    const projects = await projectsAPI.getProjects();
+    const apiProjects = await projectsAPI.getProjects();
+    const projects = [...apiProjects, ...STATIC_PROJECTS];
 
     if (projectCountEl) {
       projectCountEl.textContent = String(projects.length);
