@@ -24,24 +24,6 @@ const projectCountEl = document.getElementById('project-count');
 const projectsGrid = document.getElementById('projects-grid');
 
 function cardMarkup(project: ProjectListItem) {
-  const statsMarkup = project.stats.length
-    ? `
-      <div class="project-stats">
-        ${project.stats
-          .slice(0, 2)
-          .map(
-            (stat) => `
-              <div class="stat-chip">
-                <strong>${stat.value}</strong>
-                <span>${stat.label}</span>
-              </div>
-            `
-          )
-          .join('')}
-      </div>
-    `
-    : '';
-
   const tagsMarkup = project.tags.length
     ? `
       <div class="project-tags">
@@ -56,32 +38,63 @@ function cardMarkup(project: ProjectListItem) {
   return `
     <article class="project-card">
       <div class="project-topline">
-        <span class="project-category">${project.category.name}</span>
         ${project.featured ? '<span class="project-badge">Destaque</span>' : ''}
       </div>
       <h3>${project.title}</h3>
       <p>${project.description}</p>
       ${tagsMarkup}
-      ${statsMarkup}
     </article>
   `;
 }
+
+const CATEGORY_ORDER = ['sites', 'automações', 'bots discord', 'bots', 'automacoes', 'automações'];
+
+function categoryLabel(slug: string, name: string): string {
+  const map: Record<string, string> = {
+    sites: 'Sites',
+    automacoes: 'Automações',
+    'automações': 'Automações',
+    'bots-discord': 'Bots Discord',
+    bots: 'Bots Discord',
+    'bots discord': 'Bots Discord',
+  };
+  return map[slug.toLowerCase()] ?? map[name.toLowerCase()] ?? name;
+}
+
+function groupByCategory(projects: ProjectListItem[]) {
+  const order = ['sites', 'automacoes', 'automações', 'bots-discord', 'bots'];
+  const map = new Map<string, { label: string; items: ProjectListItem[] }>();
+
+  for (const p of projects) {
+    const key = p.category.slug;
+    if (!map.has(key)) {
+      map.set(key, { label: categoryLabel(p.category.slug, p.category.name), items: [] });
+    }
+    map.get(key)!.items.push(p);
+  }
+
+  return [...map.entries()].sort(([a], [b]) => {
+    const ai = order.indexOf(a.toLowerCase());
+    const bi = order.indexOf(b.toLowerCase());
+    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+  });
+}
+
+void CATEGORY_ORDER;
 
 async function loadProjects() {
   if (!projectsGrid) return;
 
   try {
     const projects = await projectsAPI.getProjects();
-    const visibleProjects = projects.slice(0, 6);
 
     if (projectCountEl) {
       projectCountEl.textContent = String(projects.length);
     }
 
-    if (visibleProjects.length === 0) {
+    if (projects.length === 0) {
       projectsGrid.innerHTML = `
         <article class="project-card empty-card">
-          <div class="project-category">Sem projetos</div>
           <h3>Nenhum projeto publicado ainda</h3>
           <p>Assim que os projetos forem cadastrados, eles aparecem aqui automaticamente.</p>
         </article>
@@ -89,7 +102,23 @@ async function loadProjects() {
       return;
     }
 
-    projectsGrid.innerHTML = visibleProjects.map(cardMarkup).join('');
+    const groups = groupByCategory(projects);
+
+    projectsGrid.innerHTML = groups
+      .map(
+        ([, group]) => `
+          <div class="project-group">
+            <div class="project-group-header">
+              <span class="project-group-title">${group.label}</span>
+              <span class="project-group-count">${group.items.length} projeto${group.items.length !== 1 ? 's' : ''}</span>
+            </div>
+            <div class="projects-group-grid">
+              ${group.items.map(cardMarkup).join('')}
+            </div>
+          </div>
+        `
+      )
+      .join('');
 
     document.querySelectorAll<HTMLElement>('.project-card').forEach((card, index) => {
       card.style.opacity = '0';
@@ -108,7 +137,7 @@ async function loadProjects() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     document.querySelectorAll<HTMLElement>('.project-card').forEach((card) => observer.observe(card));
